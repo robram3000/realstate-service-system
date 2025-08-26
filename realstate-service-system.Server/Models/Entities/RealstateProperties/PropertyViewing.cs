@@ -7,15 +7,15 @@ namespace realstate_service_system.Server.Models.Entities
     {
         public DateTime ViewingDate { get; set; }
         public TimeSpan ViewingTime { get; set; }
-        public string Status { get; set; } = "Scheduled"; // Scheduled, Completed, Cancelled
+        public string Status { get; set; } = "Scheduled"; 
         public string? ClientFeedback { get; set; }
-        public int? ClientRating { get; set; } // 1-5 stars
+        public int? ClientRating { get; set; } 
 
-        // Foreign keys
+       
         public Guid ClientId { get; set; }
         public Guid PropertyId { get; set; }
 
-        // Navigation properties
+      
         public virtual Client Client { get; set; } = null!;
         public virtual Property Property { get; set; } = null!;
     }

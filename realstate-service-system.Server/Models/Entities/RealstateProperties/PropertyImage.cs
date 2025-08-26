@@ -7,10 +7,10 @@
         public int DisplayOrder { get; set; }
         public bool IsPrimary { get; set; }
 
-        // Foreign key
+    
         public Guid PropertyId { get; set; }
 
-        // Navigation property
+
         public virtual Property Property { get; set; } = null!;
     }
 }

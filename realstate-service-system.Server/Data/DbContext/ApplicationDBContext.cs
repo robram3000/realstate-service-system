@@ -3,11 +3,18 @@ using realstate_service_system.Server.Models.Entities;
 using realstate_service_system.Server.Models.Entities.Member;
 using realstate_service_system.Server.Models.Entities.RealstateProperties;
 using realstate_service_system.Server.Models.Enums;
+<<<<<<< HEAD
 // Remove the BCrypt using directive and use fully qualified name instead
 
 namespace realstate_service_system.Server.Data.DbContext
 {
     public class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
+=======
+
+namespace realstate_service_system.Server.Data.DbContext
+{
+    public class ApplicationDbContext : DbContext
+>>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -88,7 +95,11 @@ namespace realstate_service_system.Server.Data.DbContext
             {
                 entity.HasKey(p => p.Id);
                 entity.Property(p => p.Title).IsRequired().HasMaxLength(200);
+<<<<<<< HEAD
                 entity.Property(p => p.Description).HasColumnType("nvarchar(MAX)");
+=======
+                object value = entity.Property(p => p.Description).HasColumnType("nvarchar(MAX)");
+>>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf
                 entity.Property(p => p.Address).IsRequired().HasMaxLength(300);
                 entity.Property(p => p.City).IsRequired().HasMaxLength(100);
                 entity.Property(p => p.State).IsRequired().HasMaxLength(50);
@@ -97,7 +108,10 @@ namespace realstate_service_system.Server.Data.DbContext
                 entity.Property(p => p.PropertyType).IsRequired().HasMaxLength(50);
                 entity.Property(p => p.Status).IsRequired().HasMaxLength(20);
 
+<<<<<<< HEAD
                 // Decimal configurations
+=======
+>>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf
                 entity.Property(p => p.Price).HasColumnType("decimal(18,2)");
                 entity.Property(p => p.MonthlyRent).HasColumnType("decimal(18,2)");
                 entity.Property(p => p.SquareFootage).HasColumnType("decimal(18,2)");
@@ -210,7 +224,11 @@ namespace realstate_service_system.Server.Data.DbContext
                     LastName = "Administrator",
                     Email = "admin@realstate.com",
                     PhoneNumber = "+1234567890",
+<<<<<<< HEAD
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin123!"), // Fixed BCrypt reference
+=======
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin123!"),
+>>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf
                     Role = RoleType.SuperAdmin,
                     EmailVerified = true,
                     CreatedAt = DateTime.UtcNow,
@@ -220,4 +238,8 @@ namespace realstate_service_system.Server.Data.DbContext
             );
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf

@@ -13,10 +13,10 @@ namespace realstate_service_system.Server.Models.Entities.RealstateProperties
         public string Country { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public decimal? MonthlyRent { get; set; }
-        public string PropertyType { get; set; } = string.Empty; // House, Apartment, Condo, etc.
-        public string Status { get; set; } = "Available"; // Available, Sold, Rented, Under Contract
+        public string PropertyType { get; set; } = string.Empty; 
+        public string Status { get; set; } = "Available"; 
 
-        // Property details
+
         public int Bedrooms { get; set; }
         public int Bathrooms { get; set; }
         public decimal SquareFootage { get; set; }
@@ -25,7 +25,7 @@ namespace realstate_service_system.Server.Models.Entities.RealstateProperties
         public int? Floor { get; set; }
         public int? TotalFloors { get; set; }
 
-        // Amenities
+     
         public bool HasParking { get; set; }
         public bool HasGarden { get; set; }
         public bool HasPool { get; set; }
@@ -33,11 +33,11 @@ namespace realstate_service_system.Server.Models.Entities.RealstateProperties
         public bool HasElevator { get; set; }
         public bool HasSecurity { get; set; }
 
-        // Foreign keys
+   
         public Guid OwnerId { get; set; }
         public Guid? AgentId { get; set; }
 
-        // Navigation properties
+
         public virtual User Owner { get; set; } = null!;
         public virtual Agent? Agent { get; set; }
         public virtual ICollection<PropertyImage> Images { get; set; } = new List<PropertyImage>();

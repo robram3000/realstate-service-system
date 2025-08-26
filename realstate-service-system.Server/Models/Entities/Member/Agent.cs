@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 ﻿using realstate_service_system.Server.Models.Entities.RealstateProperties;
 
 namespace realstate_service_system.Server.Models.Entities.Member
+=======
+﻿namespace realstate_service_system.Server.Models.Entities.Member
+>>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf
 {
     public class Agent : User
     {

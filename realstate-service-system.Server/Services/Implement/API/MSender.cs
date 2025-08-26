@@ -18,7 +18,7 @@ namespace realstate_service_system.Server.Services.Implement.API
             _configuration = configuration;
             _logger = logger;
 
-            // Configure HttpClient timeout
+            
             _httpClient.Timeout = TimeSpan.FromSeconds(30);
         }
 

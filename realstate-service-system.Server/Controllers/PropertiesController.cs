@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using realstate_service_system.Server.Services.Interface.Properties;
@@ -92,5 +93,11 @@ namespace realstate_service_system.Server.Controllers
             var properties = await _propertyService.SearchPropertiesAsync(city, minPrice, maxPrice, bedrooms, propertyType);
             return Ok(properties);
         }
+=======
+﻿namespace realstate_service_system.Server.Controllers
+{
+    public class PropertiesController
+    {
+>>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf
     }
 }
