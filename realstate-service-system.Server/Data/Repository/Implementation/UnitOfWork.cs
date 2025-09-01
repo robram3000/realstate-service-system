@@ -1,4 +1,4 @@
-﻿using realstate_service_system.Server.Data.DbContext;
+﻿
 using realstate_service_system.Server.Data.Repository.Interface.Properties;
 using realstate_service_system.Server.Data.Repository.Interface.User;
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using realstate_service_system.Server.Models.Entities.Member;
+using realstate_service_system.Server.Models.Entities.Members;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -8,7 +8,7 @@ namespace realstate_service_system.Server.Services.Implement.Authentication
 {
     public interface IJwtService
     {
-        string GenerateToken(User user);
+        string GenerateToken(Member user);
     }
 
     public class JwtService : IJwtService
@@ -20,7 +20,7 @@ namespace realstate_service_system.Server.Services.Implement.Authentication
             _configuration = configuration;
         }
 
-        public string GenerateToken(User user)
+        public string GenerateToken(Member user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]);

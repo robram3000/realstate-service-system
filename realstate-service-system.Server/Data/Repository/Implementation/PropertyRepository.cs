@@ -1,9 +1,6 @@
-<<<<<<< HEAD
+
 ﻿using Microsoft.EntityFrameworkCore;
-using realstate_service_system.Server.Data.DbContext;
-=======
-﻿using realstate_service_system.Server.Data.DbContext;
->>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf
+
 using realstate_service_system.Server.Data.Repository.Interface.Properties;
 using realstate_service_system.Server.Models.Entities.RealstateProperties;
 

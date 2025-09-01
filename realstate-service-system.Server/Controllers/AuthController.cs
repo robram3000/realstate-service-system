@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.Data;
+﻿
 using Microsoft.AspNetCore.Mvc;
-using realstate_service_system.Server.Models.Entities.Member;
+using realstate_service_system.Server.Models.Entities.Members;
+using realstate_service_system.Server.Models.ViewModels.Request;
 using realstate_service_system.Server.Services.Implement.Authentication;
 using realstate_service_system.Server.Services.Interface.Authentication;
 
@@ -34,7 +35,7 @@ namespace realstate_service_system.Server.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
-            var user = new User
+            var user = new Member
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
@@ -49,3 +50,4 @@ namespace realstate_service_system.Server.Controllers
             return Ok(new { Message = "Registration successful" });
         }
     }
+}

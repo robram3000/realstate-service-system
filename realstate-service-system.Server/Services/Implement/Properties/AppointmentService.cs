@@ -1,5 +1,6 @@
 ﻿using realstate_service_system.Server.Data.Repository.Interface.Properties;
 using realstate_service_system.Server.Models.Entities;
+using realstate_service_system.Server.Services.Interface.Properties;
 
 namespace realstate_service_system.Server.Services.Implement.Properties
 {

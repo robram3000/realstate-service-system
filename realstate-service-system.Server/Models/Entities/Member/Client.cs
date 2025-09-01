@@ -1,8 +1,6 @@
-﻿using realstate_service_system.Server.Models.Entities.RealstateProperties;
-
-namespace realstate_service_system.Server.Models.Entities.Member
+﻿namespace realstate_service_system.Server.Models.Entities.Members
 {
-    public class Client : User
+    public class Client : Member
     {
         public decimal Budget { get; set; }
         public string PreferredLocation { get; set; } = string.Empty;
@@ -11,7 +9,5 @@ namespace realstate_service_system.Server.Models.Entities.Member
         public string PropertyTypePreference { get; set; } = string.Empty;
         public bool? ParkingRequired { get; set; }
         public bool? GardenRequired { get; set; }
-        public virtual ICollection<Property> FavoriteProperties { get; set; } = new List<Property>();
-        public virtual ICollection<PropertyViewing> PropertyViewings { get; set; } = new List<PropertyViewing>();
     }
 }

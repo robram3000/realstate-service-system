@@ -9,11 +9,12 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\components\common\" />
-    <Folder Include="src\components\pages\" />
+    <Folder Include="src\API\" />
+    <Folder Include="src\components\Navigation\" />
+    <Folder Include="src\components\pages\agent\" />
+    <Folder Include="src\components\pages\admin\" />
     <Folder Include="src\components\ui\" />
-    <Folder Include="src\components\sections\" />
     <Folder Include="src\hooks\" />
-    <Folder Include="src\utils\" />
+    <Folder Include="src\services\" />
   </ItemGroup>
 </Project>

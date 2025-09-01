@@ -7,9 +7,7 @@
         public int DisplayOrder { get; set; }
         public bool IsPrimary { get; set; }
 
-    
         public Guid PropertyId { get; set; }
-
 
         public virtual Property Property { get; set; } = null!;
     }

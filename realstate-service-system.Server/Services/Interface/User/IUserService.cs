@@ -1,16 +1,18 @@
-﻿using realstate_service_system.Server.Models.Enums;
-using realstate_ser
+﻿
+using realstate_service_system.Server.Models.Entities.Members;
+using realstate_service_system.Server.Models.Enums;
+
 namespace realstate_service_system.Server.Services.Interface.User
 {
     public interface IUserService
     {
-        Task<IEnumerable<User>> GetAllUsersAsync();
-        Task<User?> GetUserByIdAsync(Guid id);
-        Task<User?> GetUserByEmailAsync(string email);
-        Task<User> CreateUserAsync(User user, string password);
-        Task UpdateUserAsync(User user);
+        Task<IEnumerable<Member>> GetAllUsersAsync();
+        Task<Member?> GetUserByIdAsync(Guid id);
+        Task<Member?> GetUserByEmailAsync(string email);
+        Task<Member> CreateUserAsync(Member user, string password);
+        Task UpdateUserAsync(Member user);
         Task DeleteUserAsync(Guid id);
         Task<bool> VerifyPasswordAsync(string email, string password);
-        Task<IEnumerable<User>> GetUsersByRoleAsync(RoleType role);
+        Task<IEnumerable<Member>> GetUsersByRoleAsync(RoleType role);
     }
 }

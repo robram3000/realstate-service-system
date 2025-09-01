@@ -1,31 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using realstate_service_system.Server.Data.DbContext;
+
 using realstate_service_system.Server.Data.Repository.Interface.User;
-using realstate_service_system.Server.Models.Entities.Member;
+using realstate_service_system.Server.Models.Entities.Members;
 
 namespace realstate_service_system.Server.Data.Repository.Implementation
 {
-    public class UserRepository : RepositoryBase<User>, IUserRepository
+    public class UserRepository : RepositoryBase<Member>, IUserRepository
     {
         public UserRepository(ApplicationDbContext context) : base(context)
         {
         }
 
-        public async Task<User?> GetByEmailAsync(string email)
+        public async Task<Member?> GetByEmailAsync(string email)
         {
             return await _dbSet
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<User?> GetByEmailWithRoleAsync(string email)
+        public async Task<Member?> GetByEmailWithRoleAsync(string email)
         {
             return await _dbSet
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<IEnumerable<User>> GetUsersByRoleAsync(string role)
+        public async Task<IEnumerable<Member>> GetUsersByRoleAsync(string role)
         {
             return await _dbSet
                 .AsNoTracking()

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using realstate_service_system.Server.Data.DbContext;
 using realstate_service_system.Server.Data.Repository.Interface;
 using System.Collections.Generic;
 using System.Linq.Expressions;

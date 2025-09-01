@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using realstate_service_system.Server.Models.Entities.Member;
+using realstate_service_system.Server.Models.Entities.Members;
+using realstate_service_system.Server.Models.ViewModels.Request;
 using realstate_service_system.Server.Services.Interface.User;
 
 namespace realstate_service_system.Server.Controllers
@@ -37,7 +38,7 @@ namespace realstate_service_system.Server.Controllers
         [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
         {
-            var user = new User
+            var user = new Member
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
@@ -58,7 +59,7 @@ namespace realstate_service_system.Server.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] User user)
+        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] Member user)
         {
             if (id != user.Id) return BadRequest();
 

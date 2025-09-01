@@ -1,9 +1,10 @@
 ﻿using realstate_service_system.Server.Models.Entities.RealstateProperties;
 using realstate_service_system.Server.Models.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace realstate_service_system.Server.Models.Entities.Member
+namespace realstate_service_system.Server.Models.Entities.Members
 {
-    public class User : BaseEntity
+    public class Member : BaseEntity
     {
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
@@ -15,7 +16,13 @@ namespace realstate_service_system.Server.Models.Entities.Member
         public DateTime? LastLogin { get; set; }
         public bool EmailVerified { get; set; } = false;
         public string VerificationToken { get; set; } = string.Empty;
+
         public virtual ICollection<Property> Properties { get; set; } = new List<Property>();
         public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+        public virtual ICollection<PropertyViewing> PropertyViewings { get; set; } = new List<PropertyViewing>();
+        public virtual ICollection<Appointment> AppointmentsAsClient { get; set; } = new List<Appointment>();
+        public virtual ICollection<Appointment> AppointmentsAsAgent { get; set; } = new List<Appointment>();
+
+ 
     }
 }

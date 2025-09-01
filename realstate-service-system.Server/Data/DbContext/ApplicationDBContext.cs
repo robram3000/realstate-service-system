@@ -1,27 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using realstate_service_system.Server.Models.Entities;
-using realstate_service_system.Server.Models.Entities.Member;
+using realstate_service_system.Server.Models.Entities.Members;
 using realstate_service_system.Server.Models.Entities.RealstateProperties;
 using realstate_service_system.Server.Models.Enums;
-<<<<<<< HEAD
-// Remove the BCrypt using directive and use fully qualified name instead
 
-namespace realstate_service_system.Server.Data.DbContext
-{
-    public class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
-=======
-
-namespace realstate_service_system.Server.Data.DbContext
+namespace realstate_service_system.Server.Data
 {
     public class ApplicationDbContext : DbContext
->>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
-        // DbSets for all entities
-        public DbSet<User> Users { get; set; }
+        public DbSet<Member> Users { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Agent> Agents { get; set; }
         public DbSet<Property> Properties { get; set; }
@@ -33,7 +24,6 @@ namespace realstate_service_system.Server.Data.DbContext
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure entity relationships and constraints
             ConfigureUserEntities(modelBuilder);
             ConfigurePropertyEntities(modelBuilder);
             ConfigureAppointmentEntities(modelBuilder);
@@ -43,8 +33,7 @@ namespace realstate_service_system.Server.Data.DbContext
 
         private void ConfigureUserEntities(ModelBuilder modelBuilder)
         {
-            // User configuration
-            modelBuilder.Entity<User>(entity =>
+            modelBuilder.Entity<Member>(entity =>
             {
                 entity.HasKey(u => u.Id);
                 entity.Property(u => u.FirstName).IsRequired().HasMaxLength(100);
@@ -55,51 +44,41 @@ namespace realstate_service_system.Server.Data.DbContext
                 entity.Property(u => u.ProfilePictureUrl).HasMaxLength(500);
                 entity.Property(u => u.VerificationToken).HasMaxLength(100);
 
-                // Indexes
                 entity.HasIndex(u => u.Email).IsUnique();
                 entity.HasIndex(u => u.PhoneNumber).IsUnique();
                 entity.HasIndex(u => u.Role);
             });
 
-            // Configure TPH (Table Per Hierarchy) for User inheritance
-            modelBuilder.Entity<User>()
-                .HasDiscriminator(u => u.Role)
-                .HasValue<User>(RoleType.SuperAdmin)
-                .HasValue<User>(RoleType.Admin)
+            modelBuilder.Entity<Member>()
+                .HasDiscriminator<RoleType>(u => u.Role)
+                .HasValue<Member>(RoleType.SuperAdmin)
+                .HasValue<Member>(RoleType.Admin)
                 .HasValue<Client>(RoleType.Client)
                 .HasValue<Agent>(RoleType.Agent);
 
-            // Client specific configuration
             modelBuilder.Entity<Client>(entity =>
             {
                 entity.Property(c => c.PreferredLocation).HasMaxLength(200);
                 entity.Property(c => c.PropertyTypePreference).HasMaxLength(100);
             });
 
-            // Agent specific configuration
             modelBuilder.Entity<Agent>(entity =>
             {
                 entity.Property(a => a.LicenseNumber).IsRequired().HasMaxLength(50);
                 entity.Property(a => a.Specialization).HasMaxLength(100);
                 entity.Property(a => a.Bio).HasMaxLength(1000);
                 entity.Property(a => a.Languages).HasMaxLength(200);
-
                 entity.HasIndex(a => a.LicenseNumber).IsUnique();
             });
         }
 
         private void ConfigurePropertyEntities(ModelBuilder modelBuilder)
         {
-            // Property configuration
             modelBuilder.Entity<Property>(entity =>
             {
                 entity.HasKey(p => p.Id);
                 entity.Property(p => p.Title).IsRequired().HasMaxLength(200);
-<<<<<<< HEAD
-                entity.Property(p => p.Description).HasColumnType("nvarchar(MAX)");
-=======
-                object value = entity.Property(p => p.Description).HasColumnType("nvarchar(MAX)");
->>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf
+                entity.Property(p => p.Description).HasMaxLength(4000);
                 entity.Property(p => p.Address).IsRequired().HasMaxLength(300);
                 entity.Property(p => p.City).IsRequired().HasMaxLength(100);
                 entity.Property(p => p.State).IsRequired().HasMaxLength(50);
@@ -108,47 +87,38 @@ namespace realstate_service_system.Server.Data.DbContext
                 entity.Property(p => p.PropertyType).IsRequired().HasMaxLength(50);
                 entity.Property(p => p.Status).IsRequired().HasMaxLength(20);
 
-<<<<<<< HEAD
-                // Decimal configurations
-=======
->>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf
                 entity.Property(p => p.Price).HasColumnType("decimal(18,2)");
                 entity.Property(p => p.MonthlyRent).HasColumnType("decimal(18,2)");
                 entity.Property(p => p.SquareFootage).HasColumnType("decimal(18,2)");
                 entity.Property(p => p.LotSize).HasColumnType("decimal(18,2)");
 
-                // Relationships
                 entity.HasOne(p => p.Owner)
                     .WithMany(u => u.Properties)
                     .HasForeignKey(p => p.OwnerId)
                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(p => p.Agent)
-                    .WithMany(a => a.ManagedProperties)
+                    .WithMany()
                     .HasForeignKey(p => p.AgentId)
                     .OnDelete(DeleteBehavior.SetNull);
 
-                // Indexes
                 entity.HasIndex(p => new { p.City, p.Status });
                 entity.HasIndex(p => p.Price);
                 entity.HasIndex(p => p.PropertyType);
                 entity.HasIndex(p => new { p.Address, p.City }).IsUnique();
             });
 
-            // PropertyImage configuration
             modelBuilder.Entity<PropertyImage>(entity =>
             {
                 entity.HasKey(pi => pi.Id);
                 entity.Property(pi => pi.ImageUrl).IsRequired().HasMaxLength(500);
                 entity.Property(pi => pi.AltText).HasMaxLength(200);
 
-                // Relationships
                 entity.HasOne(pi => pi.Property)
                     .WithMany(p => p.Images)
                     .HasForeignKey(pi => pi.PropertyId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // Indexes
                 entity.HasIndex(pi => pi.PropertyId);
                 entity.HasIndex(pi => new { pi.PropertyId, pi.IsPrimary });
             });
@@ -156,7 +126,6 @@ namespace realstate_service_system.Server.Data.DbContext
 
         private void ConfigureAppointmentEntities(ModelBuilder modelBuilder)
         {
-            // Appointment configuration
             modelBuilder.Entity<Appointment>(entity =>
             {
                 entity.HasKey(a => a.Id);
@@ -164,23 +133,23 @@ namespace realstate_service_system.Server.Data.DbContext
                 entity.Property(a => a.Status).IsRequired().HasMaxLength(20);
                 entity.Property(a => a.Notes).HasMaxLength(1000);
 
-                // Relationships
+                // Configure Client relationship
                 entity.HasOne(a => a.Client)
-                    .WithMany(c => c.Appointments)
+                    .WithMany(c => c.AppointmentsAsClient) // Use different navigation property
                     .HasForeignKey(a => a.ClientId)
                     .OnDelete(DeleteBehavior.Restrict);
 
+                // Configure Agent relationship
                 entity.HasOne(a => a.Agent)
-                    .WithMany(a => a.Appointments)
+                    .WithMany(a => a.AppointmentsAsAgent) // Use different navigation property
                     .HasForeignKey(a => a.AgentId)
                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(a => a.Property)
-                    .WithMany()
+                    .WithMany(p => p.Appointments)
                     .HasForeignKey(a => a.PropertyId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                // Indexes
                 entity.HasIndex(a => a.AppointmentDate);
                 entity.HasIndex(a => new { a.AgentId, a.AppointmentDate, a.StartTime });
                 entity.HasIndex(a => new { a.ClientId, a.AppointmentDate });
@@ -189,16 +158,14 @@ namespace realstate_service_system.Server.Data.DbContext
 
         private void ConfigureViewingEntities(ModelBuilder modelBuilder)
         {
-            // PropertyViewing configuration
             modelBuilder.Entity<PropertyViewing>(entity =>
             {
                 entity.HasKey(pv => pv.Id);
                 entity.Property(pv => pv.Status).IsRequired().HasMaxLength(20);
                 entity.Property(pv => pv.ClientFeedback).HasMaxLength(1000);
 
-                // Relationships
                 entity.HasOne(pv => pv.Client)
-                    .WithMany(c => c.PropertyViewings)
+                    .WithMany(u => u.PropertyViewings)
                     .HasForeignKey(pv => pv.ClientId)
                     .OnDelete(DeleteBehavior.Restrict);
 
@@ -207,7 +174,6 @@ namespace realstate_service_system.Server.Data.DbContext
                     .HasForeignKey(pv => pv.PropertyId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                // Indexes
                 entity.HasIndex(pv => pv.ViewingDate);
                 entity.HasIndex(pv => new { pv.ClientId, pv.PropertyId });
             });
@@ -215,20 +181,16 @@ namespace realstate_service_system.Server.Data.DbContext
 
         private void SeedInitialData(ModelBuilder modelBuilder)
         {
-            // Seed initial admin user
-            modelBuilder.Entity<User>().HasData(
-                new User
+            var adminId = Guid.NewGuid();
+            modelBuilder.Entity<Member>().HasData(
+                new Member
                 {
-                    Id = Guid.NewGuid(),
+                    Id = adminId,
                     FirstName = "System",
                     LastName = "Administrator",
                     Email = "admin@realstate.com",
                     PhoneNumber = "+1234567890",
-<<<<<<< HEAD
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin123!"), // Fixed BCrypt reference
-=======
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin123!"),
->>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf
+                    PasswordHash = "hashed_password_here",
                     Role = RoleType.SuperAdmin,
                     EmailVerified = true,
                     CreatedAt = DateTime.UtcNow,
@@ -238,8 +200,4 @@ namespace realstate_service_system.Server.Data.DbContext
             );
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf

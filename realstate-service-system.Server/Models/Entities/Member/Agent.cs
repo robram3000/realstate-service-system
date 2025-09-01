@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-﻿using realstate_service_system.Server.Models.Entities.RealstateProperties;
-
-namespace realstate_service_system.Server.Models.Entities.Member
-=======
-﻿namespace realstate_service_system.Server.Models.Entities.Member
->>>>>>> 4b1863d7bdf8454c8a355b631696f7daad95c7bf
+namespace realstate_service_system.Server.Models.Entities.Members
 {
-    public class Agent : User
+    public class Agent : Member
     {
         public string LicenseNumber { get; set; } = string.Empty;
         public string Specialization { get; set; } = string.Empty;
@@ -15,9 +9,5 @@ namespace realstate_service_system.Server.Models.Entities.Member
         public bool IsAvailable { get; set; } = true;
         public string Bio { get; set; } = string.Empty;
         public string Languages { get; set; } = string.Empty;
-
-        // Navigation properties
-        public virtual ICollection<Property> ManagedProperties { get; set; } = new List<Property>();
-        public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }

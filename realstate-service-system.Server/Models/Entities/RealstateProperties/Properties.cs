@@ -1,4 +1,4 @@
-﻿using realstate_service_system.Server.Models.Entities.Member;
+﻿using realstate_service_system.Server.Models.Entities.Members;
 
 namespace realstate_service_system.Server.Models.Entities.RealstateProperties
 {
@@ -13,9 +13,8 @@ namespace realstate_service_system.Server.Models.Entities.RealstateProperties
         public string Country { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public decimal? MonthlyRent { get; set; }
-        public string PropertyType { get; set; } = string.Empty; 
-        public string Status { get; set; } = "Available"; 
-
+        public string PropertyType { get; set; } = string.Empty;
+        public string Status { get; set; } = "Available";
 
         public int Bedrooms { get; set; }
         public int Bathrooms { get; set; }
@@ -25,7 +24,6 @@ namespace realstate_service_system.Server.Models.Entities.RealstateProperties
         public int? Floor { get; set; }
         public int? TotalFloors { get; set; }
 
-     
         public bool HasParking { get; set; }
         public bool HasGarden { get; set; }
         public bool HasPool { get; set; }
@@ -33,14 +31,13 @@ namespace realstate_service_system.Server.Models.Entities.RealstateProperties
         public bool HasElevator { get; set; }
         public bool HasSecurity { get; set; }
 
-   
         public Guid OwnerId { get; set; }
         public Guid? AgentId { get; set; }
 
-
-        public virtual User Owner { get; set; } = null!;
-        public virtual Agent? Agent { get; set; }
+        public virtual Member Owner { get; set; } = null!;
+        public virtual Member? Agent { get; set; }
         public virtual ICollection<PropertyImage> Images { get; set; } = new List<PropertyImage>();
         public virtual ICollection<PropertyViewing> Viewings { get; set; } = new List<PropertyViewing>();
+        public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }

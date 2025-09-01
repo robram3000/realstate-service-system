@@ -1,4 +1,6 @@
 ﻿using realstate_service_system.Server.Data.Repository.Interface.Properties;
+using realstate_service_system.Server.Models.Entities.Members;
+using realstate_service_system.Server.Services.Interface.Authentication;
 
 namespace realstate_service_system.Server.Services.Implement.Authentication
 {
@@ -25,7 +27,7 @@ namespace realstate_service_system.Server.Services.Implement.Authentication
             return _jwtService.GenerateToken(user);
         }
 
-        public async Task<bool> RegisterAsync(User user, string password)
+        public async Task<bool> RegisterAsync(Member user, string password)
         {
             if (await _unitOfWork.Users.EmailExistsAsync(user.Email))
                 return false;

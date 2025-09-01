@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using realstate_service_system.Server.Models.Entities;
 using realstate_service_system.Server.Services.Implement.Properties;
+using realstate_service_system.Server.Services.Interface.Properties;
 
 namespace realstate_service_system.Server.Controllers
 {
