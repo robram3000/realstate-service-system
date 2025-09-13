@@ -1,24 +1,23 @@
 import axios from 'axios';
 
-// Create axios instance with base configuration
+
 const apiClient = axios.create({
-    baseURL: '/api/properties', // Base URL for all property endpoints
+    baseURL: '/api/properties', 
     headers: {
         'Content-Type': 'application/json',
     },
 });
 
-// Request interceptor to add auth token to requests when needed
+
 apiClient.interceptors.request.use(
     (config) => {
-        // For anonymous endpoints, we don't need to add the token
         const anonymousEndpoints = ['/api/properties', '/api/properties/search'];
         const isAnonymous = anonymousEndpoints.some(endpoint =>
             config.url?.startsWith(endpoint) && config.method === 'get'
         );
 
         if (!isAnonymous) {
-            const token = localStorage.getItem('authToken'); // Or your token storage method
+            const token = localStorage.getItem('authToken'); 
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
             }
@@ -30,7 +29,6 @@ apiClient.interceptors.request.use(
     }
 );
 
-// Response interceptor to handle common errors
 apiClient.interceptors.response.use(
     (response) => response,
     (error) => {
@@ -151,7 +149,7 @@ const propertiesApi = {
         try {
             const params = new URLSearchParams();
 
-            // Add filters to params only if they have values
+            
             Object.keys(filters).forEach(key => {
                 if (filters[key] !== null && filters[key] !== undefined && filters[key] !== '') {
                     params.append(key, filters[key]);

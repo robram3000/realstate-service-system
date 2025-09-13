@@ -5,6 +5,7 @@ using realstate_service_system.Server.Models.ViewModels.Request;
 using realstate_service_system.Server.Services.Implement.Authentication;
 using realstate_service_system.Server.Services.Interface.Authentication;
 
+
 namespace realstate_service_system.Server.Controllers
 {
     [ApiController]
@@ -18,12 +19,15 @@ namespace realstate_service_system.Server.Controllers
             _authService = authService;
         }
 
-        [HttpPost("login")]
+        [HttpPost("login")]  
+        
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             try
             {
-                var token = await _authService.LoginAsync(request.Email, request.Password);
+                var token = await _authService.LoginAsync(request.Email, request.Password); 
+
+               
                 return Ok(new { Token = token });
             }
             catch (UnauthorizedAccessException ex)

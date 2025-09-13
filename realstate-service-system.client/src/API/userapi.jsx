@@ -2,16 +2,16 @@ import axios from 'axios';
 
 // Create axios instance with base configuration
 const apiClient = axios.create({
-    baseURL: '/api/users', // Base URL for all user endpoints
+    baseURL: '/api/users',
     headers: {
         'Content-Type': 'application/json',
     },
 });
 
-// Request interceptor to add auth token to all requests
+
 apiClient.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('authToken'); // Or your token storage method
+        const token = localStorage.getItem('authToken'); 
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -22,15 +22,13 @@ apiClient.interceptors.request.use(
     }
 );
 
-// Response interceptor to handle common errors
 apiClient.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401) {
-            // Handle unauthorized access (e.g., redirect to login)
+      
             console.error('Unauthorized access - possibly missing or invalid token');
         } else if (error.response?.status === 403) {
-            // Handle forbidden access (insufficient permissions)
             console.error('Forbidden - user does not have required role');
         }
         return Promise.reject(error);

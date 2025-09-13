@@ -10,10 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\API\" />
-    <Folder Include="src\components\Navigation\" />
-    <Folder Include="src\components\pages\agent\" />
-    <Folder Include="src\components\pages\admin\" />
-    <Folder Include="src\components\ui\" />
+    <Folder Include="src\components\Forgotpassword\" />
     <Folder Include="src\hooks\" />
     <Folder Include="src\services\" />
   </ItemGroup>

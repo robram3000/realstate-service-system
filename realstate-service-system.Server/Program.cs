@@ -3,7 +3,7 @@ using realstate_service_system.Server.Data;
 using realstate_service_system.Server.Data.Repository.Implementation;
 using realstate_service_system.Server.Data.Repository.Interface.Properties;
 using realstate_service_system.Server.Data.Repository.Interface.User;
-using System;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,8 +28,6 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<ApplicationDbContext>();
-
-        // Ensure the database is created
         context.Database.EnsureCreated();
 
   
