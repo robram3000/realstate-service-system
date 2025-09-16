@@ -9,6 +9,9 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="src\Page\NewFile.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="src\API\" />
     <Folder Include="src\components\Forgotpassword\" />
     <Folder Include="src\hooks\" />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, message, Alert, Space, Divider } from 'antd';
+import { Form, Input, Button, message, Alert, Space, Divider , Typography} from 'antd';
 import { SafetyCertificateOutlined } from '@ant-design/icons';
 import BaseFP from './BaseFP';
 

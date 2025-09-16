@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Layout, Button, Row, Col, Typography, Divider, Space } from 'antd';
 import { HomeOutlined, UserOutlined, PhoneOutlined, MenuOutlined } from '@ant-design/icons';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const { Header } = Layout;
 const { Title, Text } = Typography;
@@ -8,15 +9,35 @@ const { Title, Text } = Typography;
 const Navigation = () => {
     const [current, setCurrent] = useState('home');
     const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const menuItems = [
-        { key: 'home', label: 'Home' },
-        { key: 'properties', label: 'Properties' },
-        { key: 'services', label: 'Services' },
-        { key: 'agents', label: 'Agents' },
-        { key: 'about', label: 'About Us' },
-        { key: 'contact', label: 'Contact' },
+        { key: 'home', label: 'Home', path: '/' },
+        { key: 'properties', label: 'Properties', path: '/properties' },
+        { key: 'services', label: 'Services', path: '/services' },
+        { key: 'agents', label: 'Agents', path: '/agents' },
+        { key: 'about', label: 'About Us', path: '/about' },
+        { key: 'contact', label: 'Contact', path: '/contact' },
     ];
+
+    // Handle navigation clicks
+    const handleNavigation = (path, key) => {
+        setCurrent(key);
+        navigate(path);
+        setMobileMenuVisible(false);
+    };
+
+    // Handle auth button clicks
+    const handleLogin = () => {
+        navigate('/login');
+        setMobileMenuVisible(false);
+    };
+
+    const handleRegister = () => {
+        navigate('/register');
+        setMobileMenuVisible(false);
+    };
 
     return (
         <>
@@ -64,7 +85,14 @@ const Navigation = () => {
                 borderBottom: '2px solid #f0f0f0'
             }}>
                 {/* Logo section */}
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div 
+                    style={{ 
+                        display: 'flex', 
+                        alignItems: 'center',
+                        cursor: 'pointer'
+                    }}
+                    onClick={() => handleNavigation('/', 'home')}
+                >
                     <div style={{
                         backgroundColor: '#2a5d7a',
                         borderRadius: '10px',
@@ -86,19 +114,21 @@ const Navigation = () => {
                 </div>
 
                 {/* Desktop menu */}
-                <div style={{ flex: 1, marginLeft: '40px', display: { xs: 'none', md: 'block' } }}>
+                <div style={{ flex: 1, marginLeft: '40px', display: 'block' }}>
                     <Row gutter={30} justify="center">
                         {menuItems.map(item => (
                             <Col key={item.key}>
-                                <a
-                                    href={`#${item.key}`}
+                                <Button
+                                    type="text"
                                     style={{
                                         color: current === item.key ? '#2a5d7a' : '#5a7d99',
                                         fontWeight: current === item.key ? '600' : '400',
                                         fontSize: '16px',
                                         padding: '8px 0',
                                         position: 'relative',
-                                        transition: 'all 0.3s ease'
+                                        transition: 'all 0.3s ease',
+                                        border: 'none',
+                                        height: 'auto'
                                     }}
                                     onMouseEnter={(e) => {
                                         e.target.style.color = '#2a5d7a';
@@ -108,7 +138,7 @@ const Navigation = () => {
                                             e.target.style.color = '#5a7d99';
                                         }
                                     }}
-                                    onClick={() => setCurrent(item.key)}
+                                    onClick={() => handleNavigation(item.path, item.key)}
                                 >
                                     {item.label}
                                     {current === item.key && (
@@ -122,7 +152,7 @@ const Navigation = () => {
                                             borderRadius: '3px'
                                         }}></div>
                                     )}
-                                </a>
+                                </Button>
                             </Col>
                         ))}
                     </Row>
@@ -150,6 +180,7 @@ const Navigation = () => {
                         onMouseLeave={(e) => {
                             e.target.style.backgroundColor = 'transparent';
                         }}
+                        onClick={handleLogin}
                     >
                         <UserOutlined style={{ marginRight: '6px' }} /> Login
                     </Button>
@@ -172,6 +203,7 @@ const Navigation = () => {
                             e.target.style.backgroundColor = '#2a5d7a';
                             e.target.style.transform = 'translateY(0)';
                         }}
+                        onClick={handleRegister}
                     >
                         Sign Up
                     </Button>
@@ -181,7 +213,7 @@ const Navigation = () => {
                         type="text"
                         icon={<MenuOutlined style={{ color: '#2a5d7a', fontSize: '20px' }} />}
                         style={{
-                            display: { xs: 'block', md: 'none' },
+                            display: 'none',
                             marginLeft: '15px'
                         }}
                         onClick={() => setMobileMenuVisible(!mobileMenuVisible)}
@@ -206,17 +238,20 @@ const Navigation = () => {
                     <Row gutter={[0, 15]}>
                         {menuItems.map(item => (
                             <Col span={24} key={item.key}>
-                                <a
-                                    href={`#${item.key}`}
+                                <Button
+                                    type="text"
                                     style={{
                                         color: current === item.key ? '#2a5d7a' : '#5a7d99',
                                         fontWeight: current === item.key ? '600' : '400',
                                         fontSize: '16px',
                                         display: 'block',
-                                        padding: '12px 0',
+                                        padding: '12px 15px',
                                         transition: 'all 0.2s ease',
                                         borderRadius: '4px',
-                                        paddingLeft: '15px'
+                                        border: 'none',
+                                        width: '100%',
+                                        textAlign: 'left',
+                                        height: 'auto'
                                     }}
                                     onMouseEnter={(e) => {
                                         e.target.style.backgroundColor = '#f0f7ff';
@@ -228,16 +263,46 @@ const Navigation = () => {
                                             e.target.style.color = '#5a7d99';
                                         }
                                     }}
-                                    onClick={() => {
-                                        setCurrent(item.key);
-                                        setMobileMenuVisible(false);
-                                    }}
+                                    onClick={() => handleNavigation(item.path, item.key)}
                                 >
                                     {item.label}
-                                </a>
+                                </Button>
                                 <Divider style={{ margin: '5px 0', borderColor: '#f0f0f0' }} />
                             </Col>
                         ))}
+                        {/* Mobile auth buttons */}
+                        <Col span={24}>
+                            <Button
+                                type="primary"
+                                ghost
+                                style={{
+                                    borderColor: '#2a5d7a',
+                                    color: '#2a5d7a',
+                                    borderRadius: '6px',
+                                    height: '40px',
+                                    fontWeight: '500',
+                                    width: '100%',
+                                    marginBottom: '10px'
+                                }}
+                                onClick={handleLogin}
+                            >
+                                <UserOutlined style={{ marginRight: '6px' }} /> Login
+                            </Button>
+                            <Button
+                                type="primary"
+                                style={{
+                                    backgroundColor: '#2a5d7a',
+                                    border: 'none',
+                                    borderRadius: '6px',
+                                    height: '40px',
+                                    fontWeight: '500',
+                                    width: '100%'
+                                }}
+                                onClick={handleRegister}
+                            >
+                                Sign Up
+                            </Button>
+                        </Col>
                     </Row>
                 </div>
             )}
