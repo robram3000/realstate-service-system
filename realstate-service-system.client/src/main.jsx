@@ -9,9 +9,7 @@ const URL = {
         FORGOT_PASSWORD: '/forgot-password',
         LOGIN: '/login',
         REGISTER: '/register'
-    
     }
-   
 }
 
 createRoot(document.getElementById('root')).render(
@@ -22,6 +20,9 @@ createRoot(document.getElementById('root')).render(
                 <Route path={URL.CLIENT.LOGIN} element={<Login />} />
                 <Route path={URL.CLIENT.REGISTER} element={<Register />} />
                 <Route path={URL.CLIENT.FORGOT_PASSWORD} element={<ForgotPasswordFlow />} />
+
+                {/* Add a catch-all route to handle unknown paths */}
+                <Route path="*" element={<Login />} />
             </Routes>
         </Router>
     </StrictMode>
